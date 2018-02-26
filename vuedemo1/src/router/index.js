@@ -7,6 +7,7 @@ import MessagePage from '@/components/MessagePage'
 import PublishPage from '@/components/PublishPage'
 import MinePage from '@/components/MinePage'
 import DetailPage from '@/components/DetailPage'
+import LoginPage from '@/components/LoginPage'
 
 Vue.use(Router)
 
@@ -38,6 +39,10 @@ var router= new Router({
 		    },
       ]
     },
+    {
+    	 path: '/login',
+      component: LoginPage,
+    }
    
   ]
 })

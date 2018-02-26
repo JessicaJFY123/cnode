@@ -1,11 +1,9 @@
 <template>
 	<div>
-		<h1>详情页</h1>
-			<img :src="data.author.avatar_url" />
-			<h3>{{data.author.loginname}}</h3>
-			<div v-html="data.content">
-				
-		</div>
+			<h1>{{data.title}}</h1>
+			<!--<img :src="data.author.avatar_url" />-->
+			<!--<h3>{{data.author.loginname}}</h3>-->
+			<div v-html="data.content"></div>
 	</div>
 </template>
 
@@ -30,4 +28,7 @@
 </script>
 
 <style>
+	div{
+		width: 100%;
+	}
 </style>

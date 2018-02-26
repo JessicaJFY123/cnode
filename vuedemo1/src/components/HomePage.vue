@@ -1,6 +1,9 @@
 <template>
 	<div>
-		<div class="header">
+		<div class="loading" v-if="!loading">
+			<img src="../../static/time.jpg"/>
+		</div>
+		<div class="header" >
 			<ul>
 				<li @click="getDate('all')">全部</li>
 				<li @click="getDate('share')">精华</li>
@@ -11,8 +14,23 @@
 		</div>
 		<div>
 		   <div class="articleList" v-for="art in articleList">
-		   	   <router-link :to="'/detail/'+art.id"> {{art.title}}</router-link>
+		       <ul>
+		       	   <li><img :src="art.author.avatar_url" /></li>
+		       	   <li>
+			       	   	<div >
+			       	   		<router-link :to="'/detail/'+art.id"> {{art.title}}</router-link>
+			       	   </div>
+			       	   <div>
+			       	   		<router-link :to="'/detail/'+art.id"> 访问量：{{art.visit_count}}</router-link>
+			       	        <!--<router-link :to="'/detail/'+art.id"> 访问时间：{{art.last_reply_at}}</router-link>-->
+			       	   </div>
+		       	   
+		       	   </li>
+		       	   <!--<li><router-link :to="'/detail/'+art.id"> 访问时间： {{ art.last_reply_at }}</router-link></li>-->
+		       </ul>
+		   
 		   </div>
+		 
 	    </div>
 	</div>
 	
@@ -22,8 +40,18 @@
 	export default{
 		data(){
 			return{
-				articleList:[]
+				articleList:[],
+				loading:false
 			}
+		},
+		created(){
+				var that=this;
+				this.$store.dispatch("getTopics","all")
+				.then(function (res) {
+					console.log(res);
+					that.articleList=res.data.data;
+					that.loading=true
+				})
 		},
 		methods:{
 			getDate(tab){
@@ -33,10 +61,10 @@
 				.then(function (res) {
 					console.log(res);
 					that.articleList=res.data.data
-					
 				})
 			}
 		}
+		
 	}
 </script>
 
@@ -48,6 +76,15 @@
 	}
 	body{
 		background: #eee;
+		font-size: 14px;
+	}
+	
+	.loading img{
+		width: 100px;
+		height: 100px;
+		position: fixed;
+		top: 40%;
+		left: 40%;
 	}
 	.header{
 		width: 100%;
@@ -56,11 +93,12 @@
 		position: fixed;
 		top: 0;
 	}
-	.header ul{
+	 ul{
 		width: 100%;
 		height: 100%;
 		display: flex;
 		list-style: none;
+		align-items: center;
 	}
 	.header ul li{
 		text-align: center;
@@ -72,4 +110,24 @@
     	color: white;
     	background:#80BD01 ;
     }
+     .articleList ul{
+     	background: white;
+     	border-bottom: solid 1px #eee;
+     }
+     .articleList ul:hover{
+     	background: #eee;
+     }
+    .articleList img{
+    	width: 40px;
+    	height: 40px;
+    }
+    .articleList li{
+    	text-align: center;
+    	margin: 5px 10px;
+    }
+   /*.articleList li:last-child{
+    	position: fixed;
+    	right: 0;
+    }*/
+   
 </style>

@@ -16,7 +16,7 @@
 		<div class="content">
 			<textarea name="" placeholder="内容" v-model="content"></textarea>
 		</div>
-		<button style="float: left;" @click="publish()">发布</button>
+		<button style="float: left;" @click="publish">发布</button>
 		
 	</div>
 </template>
@@ -44,6 +44,7 @@
 					})
 					.catch(function (res) {
 						console.log("false"+res)
+						alert("服务器繁忙，请稍后再试")
 					})
 				}
 		    }

@@ -2,8 +2,8 @@
 	<div>
 		<mheader title="个人中心"></mheader>
 			<div class="img" @click="loginfunc">
-				<img :src="avatar_url"/>
-				<p>{{loginname}}</p>
+				<img :src="user.avatar_url"/>
+				<p>{{user.loginname}}</p>
 			</div>
 		<div class="links">
 			<p class="topic">
@@ -25,17 +25,20 @@
 		},
 		data(){
 			return{
-			   	 avatar_url:"../../static/moren.jpg",
-			   	 loginname:"您还未登录，请先登录",
+			   	user:{
+			   		 avatar_url:"../../static/moren.jpg",
+			   	     loginname:"您还未登录，请先登录"
+			   	},
 			   login:false,
 			}
 		},
 		 created(){
-		 
-			if (this.$route.query.success===true) {
-				this.loginname=this.$route.query.loginname;
-				this.avatar_url=this.$route.query.avatar_url;
-				console.log(this.avatar_url)
+		    var user=this.$store.getters.user;
+		    console.log(user.avatar_url)
+			if (user.success===true) {
+				this.user.loginname=user.loginname;
+				this.user.avatar_url=user.avatar_url;
+				//console.log(this.avatar_url)
 				this.login=true;
 			} 
 			
@@ -46,7 +49,7 @@
 					this.$router.push("/login")
 				}
 			}
-		},
+		}
 		
 	}
 </script>

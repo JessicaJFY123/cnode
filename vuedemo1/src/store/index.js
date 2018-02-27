@@ -3,16 +3,20 @@ import Vuex from "vuex"
 //数据请求时使用  axios
 import axios from "axios"
 
+import qs from 'qs'
+
 Vue.use(Vuex)
 
 const store=new Vuex.Store({
 	//保存状态
 	state:{
-       		
+       user:{}
 	},
 	//修改状态，操作的是state
 	mutations:{
-       
+       getUser(state,user){
+       	  state.user=user;
+       }
 	},
 	//提交mutation，操作的是mutation,请求数据，因为是异步的，所以用actions
 	actions:{
@@ -40,7 +44,8 @@ const store=new Vuex.Store({
 					tab:obj.tab,
 					content:obj.content
 				}
-			})
+			}
+				)
 		},
 		getLogin(store,token){
 			return axios.post("https://cnodejs.org/api/v1/accesstoken",{
@@ -48,15 +53,14 @@ const store=new Vuex.Store({
 			})
 		},
 		getUser(store,user){
-			console.log(user)
-			return axios.get("https://cnodejs.org/api/v1/user/"+user.loginname)
+			store.commit('getUser',user)
 		}
 		
 	},
 	//获取状态
 	getters:{
-		 accesstoken: (state) => state.accessToken,
          user: ( state) => state.user
+       
 	}
 })
 

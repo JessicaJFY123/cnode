@@ -37,10 +37,10 @@
 			       </ul>
 			       <ul class="myrow">
 			       	   	   <li class="visit">
-			       	   	   	  <p>{{art.visit_count}}</p>
+			       	   	   	  <i class="iconfont icon-kandian">{{art.visit_count}}</i>
 			       	   	   </li>
 			       	   	   <li class="comment">
-			       	   	   	   <p>{{art.reply_count}}</p>
+			       	   	   	    <i class="iconfont icon-pinglun">{{art.reply_count}}</i>
 			       	   	   </li>
 			       	   	   <li class="time">
 			       	   	   	    {{ art.last_reply_at | reply_time}}
